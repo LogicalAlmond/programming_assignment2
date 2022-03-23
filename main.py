@@ -1,7 +1,5 @@
-from cgitb import text
 from tkinter import *
-from turtle import back
-from webbrowser import BackgroundBrowser
+from mailHandler import MailHandler
 
 # config root
 root = Tk()
@@ -29,12 +27,12 @@ sub_entry = Entry(root)
 sub_entry.grid(row=2,column=1, sticky='ew', padx=8, pady=3)
 
 # Send Button
-send_button = Button(root, text='Send')
+send_button = Button(root, text='Send', activebackground='#93a3c2')
 send_button.grid(row=99, column=1, sticky='e', padx=3, pady=3, ipadx=2, ipady=2)
 
 # Attach Button
 attach_button = Button(root, text='Attach')
-attach_button.grid(row=99, column=0, columnspan=1, sticky='we', padx=3, pady=3, ipadx=2, ipady=2)
+attach_button.grid(row=99, column=0, sticky='we', padx=3, pady=3, ipadx=2, ipady=2)
 
 #m Message
 message_label = Label(root, text='Message: ', font=("Arial", 14), background='#d7d6d5')
@@ -44,3 +42,7 @@ message.grid(row=5, column=0, columnspan=2, padx=8, pady=3)
 
 
 root.mainloop()
+
+# Code stuffs
+# mailer = MailHandler('almondjoyforlyfe@gmail.com', 'thisismypassword123', 'smtp.gmail.com', 587)
+# mailer.login()
