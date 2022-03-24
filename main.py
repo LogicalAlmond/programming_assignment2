@@ -1,4 +1,23 @@
+from re import sub
 from tkinter import *
+from tkinter import messagebox
+from mailHandler import MailHandler
+
+EMAIL_ADDR = 'almondjoyforlyfe@gmail.com'
+PASSWD = 'thisismypassword123'
+SMTP_SERVER = 'smtp.gmail.com'
+PORT = 587
+
+mailer = MailHandler(EMAIL_ADDR, PASSWD, SMTP_SERVER, PORT)
+mailer.login()
+
+def onClickSend():
+    email = recv_entry.get()
+    subject = sub_entry.get()
+    msg = message.get('1.0', END)
+    mailer.send(subject, msg, email)
+    print('Message sent.')
+    messagebox.showinfo('Email sent', 'you clicked me!')
 
 # config root
 root = Tk()
@@ -26,11 +45,11 @@ sub_entry = Entry(root)
 sub_entry.grid(row=2,column=1, sticky='ew', padx=8, pady=3)
 
 # Send Button
-send_button = Button(root, text='Send', activebackground='#93a3c2')
+send_button = Button(root, text='Send', activebackground='#93a3c2', command=buttonClick)
 send_button.grid(row=99, column=1, sticky='e', padx=3, pady=3, ipadx=2, ipady=2)
 
 # Attach Button
-attach_button = Button(root, text='Attach')
+attach_button = Button(root, text='Attach', activebackground='#93a3c2')
 attach_button.grid(row=99, column=0, sticky='we', padx=3, pady=3, ipadx=2, ipady=2)
 
 #m Message
