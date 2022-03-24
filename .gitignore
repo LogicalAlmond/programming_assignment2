@@ -1,2 +1,5 @@
-# ignore temp dir
-/temp
+# ignore config
+config.py
+__pycache__/config.cpython-39.pyc
+__pycache__/mailHandler.cpython-38.pyc
+__pycache__/mailHandler.cpython-39.pyc
