@@ -1,23 +1,27 @@
-from re import sub
 from tkinter import *
 from tkinter import messagebox
 from mailHandler import MailHandler
+import config
 
-EMAIL_ADDR = 'almondjoyforlyfe@gmail.com'
-PASSWD = 'thisismypassword123'
+EMAIL_ADDR = config.email
+PASSWD = config.password
 SMTP_SERVER = 'smtp.gmail.com'
 PORT = 587
 
 mailer = MailHandler(EMAIL_ADDR, PASSWD, SMTP_SERVER, PORT)
 mailer.login()
 
+def onClickAttach():
+    attachment = attach_entry.get()
+    mailer.setAttachPath(attachment)
+    messagebox.showinfo('Update...', 'Attaching successful!')
+    
 def onClickSend():
     email = recv_entry.get()
     subject = sub_entry.get()
     msg = message.get('1.0', END)
     mailer.send(subject, msg, email)
-    print('Message sent.')
-    messagebox.showinfo('Email sent', 'you clicked me!')
+    messagebox.showinfo('Update...', 'Email sent successfully!')
 
 # config root
 root = Tk()
@@ -45,11 +49,15 @@ sub_entry = Entry(root)
 sub_entry.grid(row=2,column=1, sticky='ew', padx=8, pady=3)
 
 # Send Button
-send_button = Button(root, text='Send', activebackground='#93a3c2', command=buttonClick)
+send_button = Button(root, text='Send', activebackground='#93a3c2', command=onClickSend)
 send_button.grid(row=99, column=1, sticky='e', padx=3, pady=3, ipadx=2, ipady=2)
 
-# Attach Button
-attach_button = Button(root, text='Attach', activebackground='#93a3c2')
+# Attach Button and field
+attach_label = Label(root, text='Attachment path: ', background='#d7d6d5')
+attach_label.grid(row=6, column=0)
+attach_entry = Entry(root)
+attach_entry.grid(row=6, column=1, sticky='ew')
+attach_button = Button(root, text='Attach', activebackground='#93a3c2', command=onClickAttach)
 attach_button.grid(row=99, column=0, sticky='we', padx=3, pady=3, ipadx=2, ipady=2)
 
 #m Message
@@ -60,7 +68,3 @@ message.grid(row=5, column=0, columnspan=2, padx=8, pady=3)
 
 
 root.mainloop()
-
-# Code stuffs
-# mailer = MailHandler('almondjoyforlyfe@gmail.com', 'thisismypassword123', 'smtp.gmail.com', 587)
-# mailer.login()
